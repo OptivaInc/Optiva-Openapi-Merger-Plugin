@@ -3,7 +3,7 @@ package com.rameshkp.openapi.merger.app.models
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.shouldBe
-import javax.validation.Validation
+import jakarta.validation.Validation
 
 
 internal class ServerTest: BehaviorSpec({

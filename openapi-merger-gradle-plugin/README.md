@@ -4,6 +4,11 @@ Open API Merger Gradle Plugin - Merges multiple OpenAPI-3 specification file int
 
 This Gradle plugin provides the capability to merge multiple open api v3 specification file into a single file from a Gradle build. 
 
+Fork info
+---------
+
+This plugin is a fork of the original openapi-merger-gradle-plugin, maintained by Optiva Inc. It adds support for Jakarta Validation and ensures compatibility with the jakarta.* namespace introduced during the javax → jakarta migration.
+
 Compatibility Notes
 -------------------
 
@@ -18,14 +23,14 @@ Gradle Groovy DSL
 
 ```groovy
 plugins {
-      id "com.rameshkp.openapi-merger-gradle-plugin" version "1.0.5"
+      id "com.rameshkp.openapi-merger-gradle-plugin" version "1.0.6"
 }
 ```
 
 Gradle Kotlin DSL
 ```kotlin
 plugins {
-    id("com.rameshkp.openapi-merger-gradle-plugin") version "1.0.5"
+    id("com.rameshkp.openapi-merger-gradle-plugin") version "1.0.6"
 }
 ```
 
@@ -165,4 +170,20 @@ A list of server blocks
 
 # Building the plugin
 
-TODO
+To build this plugin run
+
+```text
+./gradlew :openapi-merger-gradle-plugin:build
+```
+
+# Publishing plugin to Artifactory
+
+To publish this plugin to Artifactory set the version in gradle.properties file
+```properties
+version=1.0.6-SNAPSHOT
+```
+and run 
+```
+./gradlew :openapi-merger-gradle-plugin:publish
+```
+Make sure your artifactoryUser and artifactoryPassword are configured either in gradle.properties or passed via command line or environment variables.

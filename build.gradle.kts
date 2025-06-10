@@ -1,9 +1,9 @@
 plugins {
     `maven-publish`
-    kotlin("jvm") version "1.4.20" apply false
+    kotlin("jvm") version "1.9.21" apply false
     id("net.researchgate.release") version "2.8.1"
     id("io.kotest") version "0.2.6" apply false
-    id("org.jetbrains.dokka") version "1.4.10.2" apply false
+    id("org.jetbrains.dokka") version "1.8.20" apply false
 }
 
 val localRepository = "$buildDir/openapi-repo"

@@ -2,10 +2,8 @@ plugins {
     `java-gradle-plugin`
     kotlin("jvm")
     `maven-publish`
-    id("io.kotest")
     id("com.gradle.plugin-publish") version "0.12.0"
     id("org.jetbrains.dokka")
-    signing
 }
 
 java {
@@ -16,9 +14,13 @@ java {
 dependencies {
     implementation(kotlin(module = "stdlib"))
     implementation(project(":openapi-merger-app"))
+    implementation("jakarta.validation:jakarta.validation-api:3.0.2")
+    runtimeOnly("org.hibernate.validator:hibernate-validator:8.0.2.Final")
+    runtimeOnly("org.hibernate.validator:hibernate-validator-annotation-processor:8.0.2.Final")
+    implementation("org.glassfish:jakarta.el:4.0.2")
 
-    testImplementation(group = "io.kotest", name = "kotest-assertions-core-jvm", version = "4.3.1")
-    testImplementation(group = "io.kotest", name = "kotest-framework-engine-jvm", version = "4.3.1")
+    testImplementation(group = "io.kotest", name = "kotest-assertions-core-jvm", version = "5.9.1")
+    testImplementation(group = "io.kotest", name = "kotest-framework-engine-jvm", version = "5.9.1")
     testImplementation(group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "1.4.1")
 }
 
@@ -59,24 +61,6 @@ project.afterEvaluate {
     }
 }
 
-afterEvaluate {
-    signing {
-        sign(publishing.publications["pluginMaven"])
-        sign(publishing.publications["openapi-merger-gradle-pluginPluginMarkerMaven"])
-    }
-
-    publishing {
-        publications {
-            named<MavenPublication>("pluginMaven") {
-               setPomDetails(this)
-            }
-            named<MavenPublication>("openapi-merger-gradle-pluginPluginMarkerMaven") {
-                setPomDetails(this)
-            }
-        }
-    }
-}
-
 fun setPomDetails(mavenPublication: MavenPublication) {
      mavenPublication.pom {
         name.set("Open API V3 Merger gradle plugin")
@@ -92,15 +76,28 @@ fun setPomDetails(mavenPublication: MavenPublication) {
 
         developers {
             developer {
-                id.set("rameshkp")
-                name.set("Ramesh KP")
-                email.set("kpramesh2212@gmail.com")
+                id.set("EvgeniiVol")
+                name.set("Evgenii Volokhonskii")
+                email.set("evgenii.volokhonskii@optiva.com")
             }
         }
         scm {
             connection.set("git@github.com:kpramesh2212/openapi-merger-plugin.git")
             developerConnection.set("git@github.com:kpramesh2212/openapi-merger-plugin.git")
             url.set("https://github.com/kpramesh2212/openapi-merger-plugin")
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "Artifactory"
+            url = uri("https://artifactory.labs.optiva.com/artifactory/plugins-snapshot-local")
+            credentials {
+                username = project.findProperty("artifactoryUser") as String?
+                password = project.findProperty("artifactoryPassword") as String?
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ import io.swagger.v3.parser.core.models.ParseOptions
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.util.stream.Collectors
-import javax.validation.Validation
+import jakarta.validation.Validation
 
 /**
  *  The class that helps in merging multiple open api v3 files into a single file
